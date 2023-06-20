@@ -29,11 +29,6 @@ public class BoidUnit : MonoBehaviour
         Manager = manager;
     }
 
-    public void InitializeWanderTarget()
-    {
-        this.wanderTarget = GetRandomPointOnSphere(Manager.wanderRadius);
-    }
-
     public void InitializeSpeed(float speed)
     {
         this.speed = speed;
@@ -255,28 +250,28 @@ public class BoidUnit : MonoBehaviour
 
     private Vector3 CalculateWanderVector()
     {
-        // Calculate a new target point within the wander circle
-        Vector3 displacement = Random.insideUnitSphere * Manager.wanderJitter;
-        displacement.y = 0f;
-        wanderTarget += displacement;
-        wanderTarget = wanderTarget.normalized * Manager.wanderRadius;
-
         // Calculate the target position in world space
-        Vector3 targetPosition = myTransform.TransformPoint(wanderTarget + Vector3.forward * Manager.wanderDistance);
+        this.wanderTarget = GetRandomPointInBounds();
 
         // Calculate the desired direction towards the target position
-        Vector3 desiredDirection = (targetPosition - myTransform.position).normalized;
+         Vector3 desiredDirection = (wanderTarget - myTransform.position).normalized;
 
         // Calculate the wander force
         Vector3 wanderVector = desiredDirection * speed - currentVelocity;
         return wanderVector;
     }
 
-    private Vector3 GetRandomPointOnSphere(float radius)
+    private Vector3 GetRandomPointInBounds()
     {
-        Vector3 randomPoint = Random.onUnitSphere * radius;
-        randomPoint.y = 0f;
-        return randomPoint;
+        Vector3 spawnCenter = transform.position;
+        Vector3 spawnSize = Manager.spawnBounds;
+
+        // Calculate random coordinates within the spawn bounds
+        float randomX = Random.Range(spawnCenter.x - spawnSize.x / 2f, spawnCenter.x + spawnSize.x / 2f);
+        float randomY = Random.Range(spawnCenter.y - spawnSize.y / 2f, spawnCenter.y + spawnSize.y / 2f);
+        float randomZ = Random.Range(spawnCenter.z - spawnSize.z / 2f, spawnCenter.z + spawnSize.z / 2f);
+
+        return new Vector3(randomX, randomY, randomZ);
     }
 
     private bool IsinFOV(Vector3 position)
@@ -298,5 +293,20 @@ public class BoidUnit : MonoBehaviour
                newPosition.z < boundsMin.z + margin ||
                newPosition.z > boundsMax.z - margin;
     }
+    private void OnDrawGizmos()
+    {
+        if (!Manager.drawGizmos)
+        return;
 
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(myTransform.position, 0.1f);
+
+        Gizmos.color = Color.green;
+        // Calculate the forecasted position
+        Vector3 forecastedPosition = myTransform.position + myTransform.forward * speed * Manager.forecastTime;
+        Gizmos.DrawLine(myTransform.position, forecastedPosition);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(myTransform.position, myTransform.forward);
+    }
 }

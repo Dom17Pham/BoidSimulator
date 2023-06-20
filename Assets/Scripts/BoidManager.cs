@@ -28,11 +28,8 @@ public class BoidManager : MonoBehaviour
     [Range(0, 10)]
     [SerializeField] private float _rotationSpeed; 
     public float rotationSpeed { get{return _rotationSpeed;}}
-    [Range(0, 10)]
 
     // Wander attributes of the boids
-    [SerializeField] private float _wanderRadius; 
-    public float wanderRadius { get{return _wanderRadius;}}
     [Range(0, 10)]
     [SerializeField] private float _wanderDistance; 
     public float wanderDistance { get{return _wanderDistance;}}
@@ -100,6 +97,14 @@ public class BoidManager : MonoBehaviour
     [Range(0, 10)]
     [SerializeField] public float _wanderFactor; 
     public float wanderFactor { get{return _wanderFactor;}}
+
+    [Header("Visualization Settings")]
+
+    [Range(0, 10)]
+    [SerializeField] public float _forecastTime; 
+    public float forecastTime { get{return _forecastTime;}}
+    [SerializeField] public bool _drawGizmos = false;
+    public bool drawGizmos { get{return _drawGizmos;}}
     
     // Array to store all the boids
     public BoidUnit[] allBoids {get; set;}
@@ -130,11 +135,10 @@ public class BoidManager : MonoBehaviour
                             UnityEngine.Random.Range(-spawnBounds.z / 2f + 1f, spawnBounds.z / 2f - 1f)
                            );
             var spawnPosition = transform.position + randomVector;
-            var rotation = Quaternion.Euler(0, UnityEngine.Random.Range(0.0f,360.0f), 0);
+            var rotation = Quaternion.Euler(0, 0, 0);
             allBoids[i] = Instantiate(boidUnit, spawnPosition, rotation);
             allBoids[i].AssignManager(this);
             allBoids[i].InitializeSpeed(UnityEngine.Random.Range(minSpeed,maxSpeed));
-            allBoids[i].InitializeWanderTarget();
         }
     }
 
