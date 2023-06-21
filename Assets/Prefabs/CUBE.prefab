@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8577275909907252609}
   m_Layer: 0
   m_Name: CUBE
-  m_TagString: Untagged
+  m_TagString: prey
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

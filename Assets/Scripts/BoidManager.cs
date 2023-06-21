@@ -139,6 +139,13 @@ public class BoidManager : MonoBehaviour
             allBoids[i] = Instantiate(boidUnit, spawnPosition, rotation);
             allBoids[i].AssignManager(this);
             allBoids[i].InitializeSpeed(UnityEngine.Random.Range(minSpeed,maxSpeed));
+
+        // Set the material color to cyan
+        Renderer renderer = allBoids[i].GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            renderer.material.color = Color.cyan;
+        }
         }
     }
 
