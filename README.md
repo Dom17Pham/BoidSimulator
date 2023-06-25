@@ -26,15 +26,14 @@ In this Unity project, I have implemented a boid simulation that demonstrates th
 
 The primary objective of this project is to showcase the interaction between the flocking boids and the predator boids, emphasizing the dynamic nature of their relationship.
 
+https://github.com/Dom17Pham/BoidSimulator/assets/71042283/ca5bba57-eaa4-433b-adee-0b7fd4f4dc80
+
+https://github.com/Dom17Pham/BoidSimulator/assets/71042283/5e367939-f5ee-4c0e-886e-50940bb9c2a5
 
 ## Further Development
 * Add additional types of boids with unique behaviors, such as leaders or scavengers.
 * Introduce more complex predator-prey dynamics and explore how they influence the flocking behavior.
 * Experimenting with different parameters and configurations to improve natural and organic flow of the boids.
-
-https://github.com/Dom17Pham/BoidSimulator/assets/71042283/ca5bba57-eaa4-433b-adee-0b7fd4f4dc80
-
-https://github.com/Dom17Pham/BoidSimulator/assets/71042283/5e367939-f5ee-4c0e-886e-50940bb9c2a5
 
 ## Acknowledgements 
 * Thanks to Craig Reynolds for his pioneering work on boids and making the concept widely accessible.
